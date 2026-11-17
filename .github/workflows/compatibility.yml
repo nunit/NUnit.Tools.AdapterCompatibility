@@ -1,0 +1,75 @@
+name: Adapter compatibility
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Reviewed package and lock profile
+        type: choice
+        options:
+          - historical-alpha
+        default: historical-alpha
+      require_cooperative_stop:
+        description: Also require token delivery, finally and teardown for every runner-stop probe
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: compatibility-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  compatibility:
+    name: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2025, ubuntu-24.04, macos-15]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    defaults:
+      run:
+        shell: bash
+    env:
+      VALIDATION_PROFILE: ${{ inputs.profile || 'historical-alpha' }}
+      REQUIRE_STOP: ${{ inputs.require_cooperative_stop || false }}
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Check reporting and profile guards
+        run: python -m unittest discover -s tests -v
+      - name: Read reviewed SDK selection
+        id: profile
+        run: python run.py profile --profile "profiles/$VALIDATION_PROFILE.json" --github-output "$GITHUB_OUTPUT"
+      - name: Install SDK and target runtimes
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: ${{ steps.profile.outputs.dotnet-versions }}
+          cache: false
+      - name: Run compatibility checks and observe runner stop
+        run: python run.py run --profile "profiles/$VALIDATION_PROFILE.json" --output artifacts/run
+      - name: Publish separate statuses and apply selected stop policy
+        if: ${{ always() }}
+        run: python ci_summary.py --results artifacts/run/results.json --summary "$GITHUB_STEP_SUMMARY" --require-stop "$REQUIRE_STOP"
+      - name: Retain reports, failures and process evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: compatibility-${{ matrix.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/run
+          if-no-files-found: warn
+          retention-days: 14

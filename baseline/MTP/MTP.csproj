@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net10.0;net11.0</TargetFrameworks>
+    <AssemblyName>AdapterCompatibility.MTP</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <EnableNUnitRunner>true</EnableNUnitRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Shared/CompatibilityCases.cs" Link="CompatibilityCases.cs" />
+    <PackageReference Include="NUnit" Version="$(BaselineFrameworkVersion)" />
+    <PackageReference Include="NUnit3TestAdapter" Version="$(AdapterVersion)" />
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="2.4.1" />
+  </ItemGroup>
+</Project>

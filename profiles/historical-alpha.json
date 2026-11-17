@@ -1,0 +1,33 @@
+{
+  "name": "historical-alpha",
+  "sdk": "11.0.100",
+  "targets": [
+    "net8.0",
+    "net10.0",
+    "net11.0"
+  ],
+  "baselineFramework": "4.6.1",
+  "candidateFramework": "5.1.0-alpha.0.50",
+  "adapter": "6.4.0-alpha.0.46",
+  "locks": "historical-alpha",
+  "packages": [
+    {
+      "id": "NUnit3TestAdapter",
+      "version": "6.4.0-alpha.0.46",
+      "sha256": "6981b6d1f927a73704b096ce2a02344295ecb1d082bfe6cb411a1124119d0cd5",
+      "url": "https://www.myget.org/F/nunit/api/v3/flatcontainer/nunit3testadapter/6.4.0-alpha.0.46/nunit3testadapter.6.4.0-alpha.0.46.nupkg"
+    },
+    {
+      "id": "NUnit",
+      "version": "4.6.1",
+      "sha256": "30b7225b4723f4e3b7809e858ea0ff2a9a744b9c8f62c4e9496b514d81b43efa",
+      "url": "https://api.nuget.org/v3-flatcontainer/nunit/4.6.1/nunit.4.6.1.nupkg"
+    },
+    {
+      "id": "NUnit",
+      "version": "5.1.0-alpha.0.50",
+      "sha256": "c3ff5061d6e016b75217186ca6fa8b674b415c297499bc57e3d272c9cec7bec6",
+      "url": "https://www.myget.org/F/nunit/api/v3/flatcontainer/nunit/5.1.0-alpha.0.50/nunit.5.1.0-alpha.0.50.nupkg"
+    }
+  ]
+}
