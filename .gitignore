@@ -1,0 +1,9 @@
+artifacts/
+**/bin/
+**/obj/
+__pycache__/
+*.pyc
+.packages/
+.http-cache/
+.cli-home/
+reviewed-packages/

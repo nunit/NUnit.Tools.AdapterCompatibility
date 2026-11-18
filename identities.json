@@ -1,0 +1,42 @@
+[
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.CooperativeCancellation",
+    "CooperativeCancellation"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.IntentionalFailure",
+    "IntentionalFailure"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.IntentionalIgnore",
+    "IntentionalIgnore"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.Named case (with space)",
+    "Named case (with space)"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.OutputAndPass",
+    "OutputAndPass"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.ParameterizedIdentity(\"a \\\"quoted\\\" value\")",
+    "ParameterizedIdentity(\"a \\\"quoted\\\" value\")"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.ParameterizedIdentity(\"alpha beta\")",
+    "ParameterizedIdentity(\"alpha beta\")"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.ParameterizedIdentity(\"café λ\")",
+    "ParameterizedIdentity(\"café λ\")"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.PerTestCancellation",
+    "PerTestCancellation"
+  ],
+  [
+    "NUnit.AdapterCompatibility.CompatibilityCases.RunParameters",
+    "RunParameters"
+  ]
+]

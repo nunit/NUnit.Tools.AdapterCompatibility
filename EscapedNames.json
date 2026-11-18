@@ -1,0 +1,12 @@
+[
+  {
+    "uid": "NUnit.AdapterCompatibility.CompatibilityCases.Named case (with space)",
+    "displayName": "Named case (with space)",
+    "escaped": "NUnit.AdapterCompatibility.CompatibilityCases.Named case \\(with space\\)"
+  },
+  {
+    "uid": "NUnit.AdapterCompatibility.CompatibilityCases.ParameterizedIdentity(\"a \\\"quoted\\\" value\")",
+    "displayName": "ParameterizedIdentity(\"a \\\"quoted\\\" value\")",
+    "escaped": "NUnit.AdapterCompatibility.CompatibilityCases.ParameterizedIdentity\\(\"a \\\\\"quoted\\\\\" value\"\\)"
+  }
+]
