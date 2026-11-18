@@ -1,4 +1,4 @@
-// Copyright (c) Charlie Poole, Rob Prouse and Contributors. MIT License - see LICENSE.txt
+﻿// Copyright (c) Charlie Poole, Rob Prouse and Contributors. MIT License - see LICENSE.txt
 
 using System;
 using System.Diagnostics;
@@ -135,7 +135,12 @@ namespace NUnit.AdapterCompatibility
         private static async Task ObserveCancellation()
         {
             var token = TestContext.CurrentContext.CancellationToken;
-            using (token.Register(() => WriteReceipt("token-cancelled")))
+            var callbackCompleted = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+            using (token.Register(() =>
+            {
+                WriteReceipt("token-cancelled");
+                callbackCompleted.TrySetResult(true);
+            }))
             {
                 try
                 {
@@ -145,6 +150,10 @@ namespace NUnit.AdapterCompatibility
                 finally
                 {
                     WriteReceipt("finally");
+                    // Cancellation may resume this method before dispatch reaches our callback.
+                    // Keep its registration alive until the real callback has written its receipt.
+                    if (token.IsCancellationRequested)
+                        await callbackCompleted.Task.WaitAsync(TimeSpan.FromSeconds(5));
                 }
             }
         }
